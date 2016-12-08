@@ -1,6 +1,6 @@
 =head1 NAME
 
-EnhancedPostmasterFilter
+EnhancedPostmasterFilter - use named captures in Postmaster filter
 
 =head1 DESCRIPTION
 
@@ -17,9 +17,9 @@ Now you can use names for the capturing groups and use the names in the "set" ac
 
 =head1 EXAMPLE
 
-The following mail is a maintenance notification and you want to catch the two server ips in the mail
-body and the customer id in the subject. And finally you want to use those values to set the dynamic field
-I<Test> to the customer id and the dynamic field I<Servers> to "servers: xxxxxxx and yyyyyy".
+The following mail is a maintenance notification and you want to catch the two server IPs in the mail
+body and the customer ID in the subject. And finally you want to use those values to set the dynamic field
+I<Test> to the customer ID and the dynamic field I<Servers> to "xxxxxxx and yyyyyy".
 
   Return-Path: <maint@your-hoster.example>
   X-Original-To: opar@test.example
@@ -33,7 +33,7 @@ I<Test> to the customer id and the dynamic field I<Servers> to "servers: xxxxxxx
   Message-ID: <c2ac0b64d099e9cdb90cd6bcxxxx@server02>
   Date: Thu, 18 Dec 2014 13:13:22 +0100
   
-  There will be maintenance on Sunday for theses servers:
+  There will be maintenance on Sunday for these servers:
   
   127.0.0.1
   1.1.1.1
@@ -43,7 +43,7 @@ Now you can define these matches:
   Field: Body        Value: \n\n(?<s1>\d+\.\d+\.\d+\.\d+)\n(?<s2>\d+\.\d+\.\d+\.\d+)
   Field: Subject     Value: CustomerID (?<cid>\d+)
 
-And theses set actions:
+And these set actions:
 
   Field: X-OTRS-DynamicField-Test       Value: [**\cid**]
   Field: X-OTRS-DynamicField-Servers    Value: [**\s1**] and [**\s2**]
@@ -55,13 +55,13 @@ L<Caritasverband Westerwald-Rhein-Lahn e.V.|http://www.caritas-westerwald-rhein-
 
 =head1 SOURCECODE AND BUGTRACKER
 
-The code repository and a bugtracker is available at L<http://github.com/reneeb/otrs-EnhancedPostmasterFilter>.
-Please report any bugs and feature requests on github or via mail.
+The code repository and a bugtracker is available at L<https://github.com/reneeb/otrs-EnhancedPostmasterFilter>.
+Please report any bugs and feature requests on GitHub or via mail.
 
 =head1 AUTHOR AND LICENSE
 
 This package was written by Renee Baecker E<lt>otrs@perl-services.deE<gt>.
 
-The package is licensed unter AGPL. If you
+The package is licensed under AGPL 3.0. If you
 did not receive this file, see L<http://www.gnu.org/licenses/agpl.txt>.
 

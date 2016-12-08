@@ -1,0 +1,82 @@
+=encoding utf-8
+
+=head1 NÉV
+
+EnhancedPostmasterFilter - elnevezett elfogások használata levelezési szűrőkben
+
+=head1 LEÍRÁS
+
+Jelenleg saját levelezési szűrőmodult kell kifejlesztenie, ha több értéket 
+szeretne elkapni a levélből, és például dinamikus mezők beállítására szeretné 
+használni azokat. Az OTRS-sel szállított modul csak a C<[***]> használatát 
+teszi lehetővé az elfogott érték használatához a „beállítás” műveletekben. 
+De mi is az elfogott érték?
+
+Az OTRS az „illesztés” szakaszban meghatározott mezőket ábécé sorrendben 
+ellenőrzi. Így a C<[***]> az (ábécé sorrendben) utolsó mező utolsó elfogó 
+csoportjaival (C<()>) elfogott érték lesz.
+
+De mi van akkor, ha több értéket szeretne elfogni és használni? Ekkor kerül 
+képbe ez a modul!
+
+Mostantól neveket használhat az elfogó csoportoknál, és használhatja a neveket 
+a „beállítás” műveletekben is.
+
+=head1 PÉLDA
+
+A következő levél egy karbantartási értesítés, és el szeretné fogni a levél 
+törzsében lévő két kiszolgáló IP-címét, valamint a tárgyban lévő 
+ügyfél-azonosítót. És végül a I<Test> dinamikus mező beállítására az 
+ügyfél-azonosítót, illetve a I<Servers> dinamikus mező beállítására az 
+„xxxxxxx és yyyyyy” értéket szeretné használni.
+
+  Return-Path: <maint@your-hoster.example>
+  X-Original-To: opar@test.example
+  Delivered-To: opar@test.example
+  Received: from xxxx (xxxxxxxx) by mail.xxxxxx (Postfix) with ESMTPS id xxxxx for <opar@test.example>; Thu, 18 Dec 2014 13:13:22 +0100 (CET)
+  To: opar@test.example
+  Subject: Maintenance CustomerID 123456
+  From: maint@your-hoster.example
+  MIME-Version: 1.0
+  Reply-To: maint@your-hoster.example
+  Message-ID: <c2ac0b64d099e9cdb90cd6bcxxxx@server02>
+  Date: Thu, 18 Dec 2014 13:13:22 +0100
+  
+  Vasárnap karbantartás lesz ezeknél a kiszolgálóknál:
+  
+  127.0.0.1
+  1.1.1.1
+
+Most már meghatározhatja ezeket az illesztéseket:
+
+  Mező: Body        Érték: \n\n(?<s1>\d+\.\d+\.\d+\.\d+)\n(?<s2>\d+\.\d+\.\d+\.\d+)
+  Mező: Subject     Érték: CustomerID (?<cid>\d+)
+
+És ezeket a beállítás művelteket:
+
+  Mező: X-OTRS-DynamicField-Test       Érték: [**\cid**]
+  Mező: X-OTRS-DynamicField-Servers    Érték: [**\s1**] és [**\s2**]
+
+=head1 KÖSZÖNETNYILVÁNÍTÁS
+
+Ennek a kiegészítőnek a fejlesztését a L<Caritasverband Westerwald-Rhein-Lahn 
+e.V.|http://www.caritas-westerwald-rhein-lahn.de/> támogatta.
+
+=head1 FORRÁSKÓD ÉS HIBAKÖVETŐ
+
+A kódtároló és a hibakövető a L<https://github.com/reneeb/otrs-EnhancedPostmasterFilter> 
+címen érhető el.
+Bármilyen hibát vagy funkciókérést a GitHub weboldalon vagy e-mailben jelentsen.
+
+=head1 SZERZŐ ÉS LICENC
+
+Ezt a csomagot Renée Bäcker E<lt>otrs@perl-services.deE<gt> írta.
+
+A csomag az AGPL 3.0 feltételei szerint licencelt. Ha nem kapta meg ezt a 
+fájlt, akkor elolvashatja a L<http://www.gnu.org/licenses/agpl.txt> címen.
+
+=head1 MAGYAR FORDÍTÁS
+
+A magyar fordítást az OTRS-megoldások csapata készítette.
+Copyright (C) 2016 Úr Balázs, L<http://otrs-megoldasok.hu>
+
