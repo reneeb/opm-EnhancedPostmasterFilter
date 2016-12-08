@@ -21,7 +21,7 @@ sub Data {
     my $Lang = $Self->{Translation} || {};
 
     $Lang->{'You can also use \'named captures\' ((?<groupname>)) and use the names in the \'Set\' action ([**\\groupname**]). (e.g. Regexp: Server: (?<server>\\w+), Set action [**\\server**]). A matched EMAILADDRESS has the name \'email\'.'} =
-        'Használhat „elnevezett elfogásokat” is ((?<csoportnev>)), és használhatja a neveket a „Beállítás” műveletben ([**\\csoportnev**]). (Például reguláris kifejezésnél: Kiszolgáló: (?<kiszolgalo>\\w+), Beállítás művelet [**\\kiszolgalo**]). Egy megtalált EMAILCÍM az „email” nevet fogja kapni.';
+        'Használhat „elnevezett elfogásokat” is ((?<csoportnev>)), és használhatja a neveket a „Beállítás” műveletben ([**\\csoportnev**]). (Például reguláris kifejezésnél: Kiszolgáló: (?<kiszolgalo>\\w+), Beállítás művelet [**\\kiszolgalo**]). Egy megtalált EMAILADDRESS az „email” nevet fogja kapni.';
 }
 
 1;
