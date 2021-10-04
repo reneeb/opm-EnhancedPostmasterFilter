@@ -174,7 +174,7 @@ $('.FilterDelete').bind('click', function (Event) {
                         <input type="checkbox" name="MatchNot[% loop.count %]" id="MatchNot[% loop.count %]" value="1" [% Data.item( "MatchNot$loop.count") | html %] />
 
                         <label for="MatchValue[% loop.count %]">[% Translate("Look for value") | html %]:</label>
-                        <input type="text" name="MatchValue[% loop.count %]" id="MatchValue[% loop.count %]" value="[% Data.item("MatchValue$loop.count") | html %]" class="W33pc [% Data.item('MatchValue' _ loop.count  _ 'Invalid') | html %]" maxlength="100"/>
+                        <input type="text" name="MatchValue[% loop.count %]" id="MatchValue[% loop.count %]" value="[% Data.item("MatchValue$loop.count") | html %]" class="W33pc [% Data.item('MatchValue' _ loop.count  _ 'Invalid') | html %]" maxlength="200"/>
                         <div id="MatchValue[% loop.count %]ServerError" class="TooltipErrorMessage">
                             <p>[% Translate("The field needs to be a valid regular expression or a literal word.") | html %]</p>
                         </div>
